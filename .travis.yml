@@ -31,7 +31,7 @@ before_install:
       conda config --set always_yes yes;
       mamba env update -n genomepy -f environment.yml --prune;
     fi
-  - if ! test -e $HOME/miniconda/bin; then
+  - travis_wait 30 if ! test -e $HOME/miniconda/bin; then
       echo "Installing miniconda";
 
       CONDA_OS=$([ "$TRAVIS_OS_NAME" = "linux" ] && echo "Linux" || echo "MacOSX");
