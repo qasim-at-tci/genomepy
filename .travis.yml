@@ -34,15 +34,15 @@ before_install:
   - if ! test -e $HOME/miniconda/bin; then
       echo "Installing miniconda";
 
-      travis_wait 30 CONDA_OS=$([ "$TRAVIS_OS_NAME" = "linux" ] && echo "Linux" || echo "MacOSX");
-      travis_wait 30 wget https://repo.continuum.io/miniconda/Miniconda3-latest-${CONDA_OS}-x86_64.sh -O miniconda.sh;
-      travis_wait 30 chmod +x miniconda.sh;
-      travis_wait 30 ./miniconda.sh -b -p $HOME/miniconda -f;
+      CONDA_OS=$([ "$TRAVIS_OS_NAME" = "linux" ] && echo "Linux" || echo "MacOSX");
+      wget https://repo.continuum.io/miniconda/Miniconda3-latest-${CONDA_OS}-x86_64.sh -O miniconda.sh;
+      chmod +x miniconda.sh;
+      ./miniconda.sh -b -p $HOME/miniconda -f;
 
-      travis_wait 30 export PATH=$HOME/miniconda/bin:$PATH;
-      travis_wait 30 conda config --set always_yes yes;
-      travis_wait 30 conda install conda-forge::mamba;
-      travis_wait 30 mamba env create -n genomepy python=$PYTHON_VERSION -f environment.yml;
+      export PATH=$HOME/miniconda/bin:$PATH;
+      conda config --set always_yes yes;
+      conda install conda-forge::mamba;
+      mamba env create -n genomepy python=$PYTHON_VERSION -f environment.yml;
     fi
 
 install:
